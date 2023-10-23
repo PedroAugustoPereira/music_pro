@@ -3,15 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"yarn next\" \"yarn electron\"",
+    "electron": "electron ./electron/main.js",
+    "next": "next",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "concurrently": "^8.2.2",
+    "electron": "^27.0.1",
+    "electron-builder": "^24.6.4",
+    "next": "13.5.6",
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.6"
+    "wait-on": "^7.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10",
