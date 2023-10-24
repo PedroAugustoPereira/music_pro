@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
 
 export default function ModalPlaylist() {
   const [musicPlaylist, setMusicPlaylist] = useState([]);
+
+  useEffect(() => {
+    window.electronAPI.ReciveFromElectron("music-playable", (event, music) => {
+      setMusicPlaylist([...musicPlaylist, music]);
+    });
+  }, [musicPlaylist]);
 
   return (
     <>

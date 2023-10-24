@@ -1,5 +1,5 @@
-import ImportFiles from './ImportFiles';
-import MusicList from './MusicList';
+import ImportFiles from "./ImportFiles";
+import MusicList from "./MusicList";
 
 export default function MainScreen() {
   return (
@@ -8,7 +8,10 @@ export default function MainScreen() {
         <div className="w-1/6 bg-[#212124] p-10">
           <ImportFiles />
         </div>
-        <main className="flex mt-10 w-full flex-wrow justify-center h-auto">
+        <main
+          className="flex mt-10 w-full flex-wrow justify-center h-auto"
+          style={{ overflow: "auto", height: "calc(100vh - 10rem)" }}
+        >
           <MusicList />
         </main>
       </section>

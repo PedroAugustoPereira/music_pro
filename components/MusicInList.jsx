@@ -1,8 +1,16 @@
-import AddIcon from './icons/AddIcon';
-import AlbumEmpty from './icons/AlbumEmpty';
-import RemoveIcon from './icons/RemoveIcon';
+import AddIcon from "./icons/AddIcon";
+import AlbumEmpty from "./icons/AlbumEmpty";
+import RemoveIcon from "./icons/RemoveIcon";
 
 export default function MusicInList({ music }) {
+  function handleDeleteMusic(music) {
+    window.electronAPI.SendToElectron("music-delete", music);
+  }
+
+  function handleAdicionarMusica(music) {
+    window.electronAPI.SendToElectron("music-to-play", music);
+  }
+
   return (
     <div className="m-5 p-2 flex flex-row border border-gray-500 w-full gap-2">
       <AlbumEmpty />
@@ -13,8 +21,8 @@ export default function MusicInList({ music }) {
         </div>
 
         <div className="flex flex-row justify-center gap-5 h-full">
-          <AddIcon />
-          <RemoveIcon />
+          <AddIcon onClick={() => handleAdicionarMusica(music)} />
+          <RemoveIcon onClick={() => handleDeleteMusic(music)} />
         </div>
       </div>
     </div>

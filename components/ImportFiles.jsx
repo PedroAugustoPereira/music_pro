@@ -1,4 +1,24 @@
 export default function ImportFiles() {
+  const handleFileInputChange = (event) => {
+    //função que nos da o eveno que a chamou, normalmente um input alterado
+    const selectedFiles = Array.from(event.target.files); //agora transformamos o  A MATRIZ de aquivos em um array com Array.from
+    selectedFiles.forEach((file) => {
+      //precorremos tudo
+      const reader = new FileReader(); //usamos FileReader, uma API que permite ler dados de arquivos selecionados pelo usuári
+      reader.onload = () => {
+        //onload é chamado quando o FileRader termina de ler o arquivo, e então chama a função
+        const fileData = reader.result; //objtemos os dados do arquivo lido
+        const fileObject = {
+          name: file.name, //armazena o nome do arquivo
+          data: new Uint8Array(fileData), //armazena os dados do arquivo com Uint8Array, que é uma representação de dados binários em js
+        };
+
+        window.electronAPI.SendToElectron("music-upload", fileObject); // usando a api que criamos do electron para enviar os dados do arquivo para o processo principal, com o evento music-upload
+      };
+      reader.readAsArrayBuffer(file); //inicia a leitura do arquivo com o Arraybuffer,isso é fundamental para disparar o onload.
+    });
+  };
+
   return (
     <>
       <div className="mb-3">
@@ -14,6 +34,7 @@ export default function ImportFiles() {
           id="formFileMultiple"
           multiple
           accept=".mp3,.wav"
+          onChange={handleFileInputChange}
         />
       </div>
     </>
